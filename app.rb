@@ -1,10 +1,15 @@
-require 'active_record'
-require 'sqlite3'
-require 'logger'
+require_relative 'config/app.rb'
 
-ActiveRecord::Base.logger = Logger.new('debug.log')
-configuration = YAML::load(IO.read('config/database.yml'))
-ActiveRecord::Base.establish_connection(configuration['development'])
+class Item < ActiveRecord::Base
+	validates :title, presence: true
+	validates :content, presence: true
+end
 
-class User < ActiveRecord::Base
+# item = Item.new
+# item.title = Faker::Lorem.word.capitalize
+# item.content = Faker::Lorem.paragraph
+# item.save!
+
+Item.where(title: nil).find_each do |i|
+	puts "title: '#{i.title}'"
 end
