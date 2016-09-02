@@ -1,1 +1,1 @@
-# activerecord
+# Узучаю activerecord
