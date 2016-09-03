@@ -14,14 +14,16 @@ class ItemAPI < Grape::API
 		end
 	end
 
-	resource :items do
-		params do
-			requires :title
-			requires :content
-		end
+	post '/items/new' do
+		item = Item.new
+		item.title = params[:title]
+		item.content = params[:content]
 		
-		post :new do
-			{ params[:title].count.to_s => params[:content].count }
+		if item.save then
+			{ title: params[:title], content: params[:content] }
+			redirect 'http://localhost/ruby/activerecord/post.html'
+		else
+			{item_is: 'not saved'}
 		end
 	end
 
