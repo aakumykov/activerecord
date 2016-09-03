@@ -1,4 +1,4 @@
-require_relative 'app'
+require_relative 'model'
 
 task :default => :migrate
 
