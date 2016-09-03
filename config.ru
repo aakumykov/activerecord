@@ -1,3 +1,3 @@
-require_relative 'item'
+require_relative 'item.rb'
 
 run ItemAPI
