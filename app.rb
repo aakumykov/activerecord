@@ -1,23 +1,10 @@
-require_relative 'model.rb'
+require 'grape'
 
-system 'clear'
+class ItemAPI < Grape::API
+	format :json
 
-# item = Item.new
-# item.title = ''
-# item.content = ''
-# item.save!
+	get '/' do
+		{ main:'page' }
+	end
 
-# item = Item.new
-# item.title = Faker::Lorem.word.capitalize
-# item.content = Faker::Lorem.paragraph
-# item.save!
-
-# Item.all.each do |i|
-# 	puts "заголовок: '#{i.title}'"
-# 	puts "содержимое: '#{i.content}'"
-# 	puts ''
-# end
-
-Item.where.not(title: '').each_with_index {|i,index| 
-	puts "#{index}: #{i.title}"
-}
+end
