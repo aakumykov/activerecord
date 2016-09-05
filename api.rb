@@ -7,23 +7,34 @@ class API < Grape::API
 	resource '/items' do
 
 		get '/' do
-			{ list:'items' }
+			Item.all
 		end
 
 		get '/:id' do
-			{ view: 'item' }
+			item = Item.find_by(id: params.id)
+			{ item: item.title }
 		end
 
 		post '/new' do
-			{ new: 'item' }
+			item = Item.create!( declared(params) )
+			{ new_item: item[:id] }
 		end
 
-		get ':id/edit' do
-			{ edit: 'item' }
+		get '/:id/edit' do
+			item = Item.find_by(id: params.id)
+			{ edit: item[:title] }
+		end
+
+		patch '/:id' do
+			item = Item.find_by(id: params.id)
+			item.update!( declared(params) )
+			{ update: item[:id] }
 		end
 
 		delete ':id/delete' do
-			{ delete: 'item' }
+			item = Item.find_by(id: params.id)
+			item.destroy!
+			{ deleted_item: item.id }
 		end
 	end
 end
